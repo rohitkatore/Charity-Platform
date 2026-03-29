@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Build output
+dist/
+
+# Environment files (contain secrets)
+.env
+.env.local
+.env.production
+
+# Database
+server/db/platform.sqlite
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# User-requested exclusions
+*.pdf
+*.txt

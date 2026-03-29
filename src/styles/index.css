@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-0: #071323;
+  --bg-1: #0b1f3d;
+  --bg-2: #10294f;
+  --surface-300: #0b1728;
+  --surface-200: #10233f;
+  --brand-600: #e85d3a;
+  --brand-500: #f47f4f;
+  --brand-300: #ffbe9c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Manrope", sans-serif;
+  background: radial-gradient(1400px 800px at 90% -20%, #1e477a 0%, rgba(30, 71, 122, 0) 60%),
+    radial-gradient(900px 500px at 10% 0%, #0f2f57 0%, rgba(15, 47, 87, 0) 60%),
+    linear-gradient(170deg, var(--bg-0), var(--bg-1), var(--bg-2));
+  color: #e2e8f0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.shadow-glow {
+  box-shadow: 0 8px 32px rgba(232, 93, 58, 0.32);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  section {
+    animation: fade-up 420ms ease both;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
