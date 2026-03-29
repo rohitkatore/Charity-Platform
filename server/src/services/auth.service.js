@@ -29,21 +29,37 @@ function parseJwtTtlToMs(ttl) {
 }
 
 function setAuthCookie(res, token) {
-  res.cookie(env.jwtCookieName, token, {
+  const cookieOptions = {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: env.jwtCookieSameSite,
     secure: env.secureCookies,
     path: "/",
     maxAge: parseJwtTtlToMs(env.jwtTtl),
+  };
+
+  if (env.jwtCookieDomain) {
+    cookieOptions.domain = env.jwtCookieDomain;
+  }
+
+  res.cookie(env.jwtCookieName, token, {
+    ...cookieOptions,
   });
 }
 
 function clearAuthCookie(res) {
-  res.clearCookie(env.jwtCookieName, {
+  const cookieOptions = {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: env.jwtCookieSameSite,
     secure: env.secureCookies,
     path: "/",
+  };
+
+  if (env.jwtCookieDomain) {
+    cookieOptions.domain = env.jwtCookieDomain;
+  }
+
+  res.clearCookie(env.jwtCookieName, {
+    ...cookieOptions,
   });
 }
 

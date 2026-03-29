@@ -55,7 +55,11 @@ function createApp() {
   app.use(cookieParser());
 
   app.get("/api/health", (req, res) => {
-    res.json({ ok: true });
+    res.json({
+      ok: true,
+      databaseProvider: env.databaseProvider,
+      supabaseConfigured: Boolean(env.supabaseUrl && env.supabaseServiceRoleKey),
+    });
   });
 
   app.use("/api/public", publicRouter);
