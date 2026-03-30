@@ -318,7 +318,9 @@ function publishDraw({ drawMonth, logicMode, algorithmWeight, fixedDrawNumbers }
   // Wrap the critical persistence section in a transaction to prevent
   // race-condition on concurrent publish requests for the same month.
   const { db } = require("../data/store");
-  const publishTransaction = db.transaction(() => {
+  db.exec("BEGIN IMMEDIATE");
+
+  try {
     // Re-check inside the transaction to prevent TOCTOU race.
     if (findPublishedDrawByMonth(normalizedMonth)) {
       const error = new Error("Draw already published for this month");
@@ -335,10 +337,12 @@ function publishDraw({ drawMonth, logicMode, algorithmWeight, fixedDrawNumbers }
 
     savePublishedDraw(published);
     createWinnerRecordsFromDraw(published);
+    db.exec("COMMIT");
     return published;
-  });
-
-  return publishTransaction();
+  } catch (error) {
+    db.exec("ROLLBACK");
+    throw error;
+  }
 }
 
 function getPublishedDrawHistory() {
